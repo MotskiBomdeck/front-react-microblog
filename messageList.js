@@ -9,9 +9,15 @@ var MessageCard = React.createClass({
 });
 
 var MessageList = React.createClass({
+  getInitialState : function(){
+    return {
+      messageList : this.props.messages
+    }
+  },
+
   render: function() {
-    var messages = this.props.messages;
-    var count = messages.length;
+    var messages = this.state.messageList;
+    var count = this.state.messageList.length;
     var messageCards = [];
 
     messages.forEach(function(msg){
@@ -28,17 +34,13 @@ var MessageList = React.createClass({
 });
 
 var messageList = [{
-  date:'2014-12-12',
-  message: 'Vai mané!'
-},
-{
-  date:'2014-12-12',
-  message: 'Vai mané!'
-},
-{
-  date:'2014-12-12',
-  message: 'Vai mané!'
-}];
+    date:'2014-12-12',
+    message: 'Vai mané!'
+  },
+  {
+    date:'2014-12-12',
+    message: 'Vai mané!'
+  }];
 
 React.render(
   <MessageList messages={messageList} />, 
