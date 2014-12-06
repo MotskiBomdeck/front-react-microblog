@@ -5,8 +5,10 @@ var MessageInput = React.createClass({
     var message = this.refs.message.getDOMNode().value.trim();
 
     var request = {
-      username: "Motski",
-      text: message
+      message: {
+        username: 'Motski',
+        text: message  
+      }
     }  
 
     messageRepository.send(request).done(function(data){

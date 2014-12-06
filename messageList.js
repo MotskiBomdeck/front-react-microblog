@@ -9,16 +9,21 @@ var MessageCard = React.createClass({
 });
 
 var MessageList = React.createClass({
+  refreshMessages:function(){
+    var that = this;
+    messageRepository.get().done(function(data){
+        that.setState({messageList : data });        
+    });
+  },
+
   getInitialState : function(){
     return {
       messageList : []
     }
   },
   componentDidMount: function(){
-    var that = this;
-    messageRepository.get().done(function(data){
-        that.setState({messageList : data.messageList });        
-    });
+    this.refreshMessages();
+    setInterval(this.refreshMessages, 1000);
   },
   render: function() {
     var messages = this.state.messageList;
@@ -26,7 +31,7 @@ var MessageList = React.createClass({
     var messageCards = [];
 
     messages.forEach(function(msg){
-      messageCards.push(<MessageCard message={msg.message} date={msg.date} />);
+      messageCards.push(<MessageCard message={msg.text} date={msg.date} />);
     });
 
     return (
