@@ -11,10 +11,15 @@ var MessageCard = React.createClass({
 var MessageList = React.createClass({
   getInitialState : function(){
     return {
-      messageList : this.props.messages
+      messageList : []
     }
   },
-
+  componentDidMount: function(){
+    var that = this;
+    messageRepository.get().done(function(data){
+        that.setState({messageList : data.messageList });        
+    });
+  },
   render: function() {
     var messages = this.state.messageList;
     var count = this.state.messageList.length;
@@ -33,17 +38,8 @@ var MessageList = React.createClass({
   }
 });
 
-var messageList = [{
-    date:'2014-12-12',
-    message: 'Vai mané!'
-  },
-  {
-    date:'2014-12-12',
-    message: 'Vai mané!'
-  }];
-
 React.render(
-  <MessageList messages={messageList} />, 
+  <MessageList />, 
   document.getElementById('container')
 );
 
