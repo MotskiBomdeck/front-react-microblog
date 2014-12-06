@@ -1,6 +1,6 @@
 var MessageCard = React.createClass({
   render: function() {
-    var date = this.props.date;
+    var date = new Date(this.props.date).toTimeString();
   
     var message = this.props.message;
 
